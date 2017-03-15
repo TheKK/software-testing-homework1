@@ -1,0 +1,19 @@
+language: cpp
+os:
+  - linux
+  - osx
+
+compiler:
+  - gcc
+  - clang
+
+notifications:
+  email:
+    on_success: change
+    on_failure: always
+
+script:
+  - git submodule init && git submodule update
+  - mkdir build && cd build
+  - cmake ..
+  - make unit_test_runner && ./unit_test_runner

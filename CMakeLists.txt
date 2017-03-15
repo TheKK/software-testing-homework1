@@ -1,9 +1,13 @@
-cmake_minimum_required(VERSION 3.7)
+cmake_minimum_required(VERSION 2.8)
 
 project("software_testing_homework")
 
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
+
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -Werror")
+set(CMAKE_CXX_FLAGS_DEBUG "-g")
+set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
 add_subdirectory("${CMAKE_SOURCE_DIR}/third_party/googletest" EXCLUDE_FROM_ALL)
 include_directories(SYSTEM "${CMAKE_SOURCE_DIR}/third_party/googletest/googletest/include")
