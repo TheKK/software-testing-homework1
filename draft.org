@@ -10,6 +10,7 @@
   cases created from the methods which mentioned in the class.
 
 ** Boundary values
+
    This function has three inputs with range from 1 to 200, its normal boundary value
    test case should be:
 
@@ -130,6 +131,44 @@
 
    Still, I skip most of them here since they're just in different order. That's all of
    them, folks!
+
+** Equivalence class
+
+   First thing to do is define *classes*. In triangle problem one possible way is to
+   classify test case by the *result*, means:
+
+    - C1 = {a, b, c, which form an equilateral triangle}
+    - C2 = {a, b, c, which form an isosceles triangle}
+    - C3 = {a, b, c, which form an scalene triangle}
+    - C4 = {a, b, c, which unable to form an triangle}
+
+   Well, fair enough for this case. Let's write them down:
+
+   *Weak normal*
+   | a | 42 | 42 | 42 | 42 |
+   | b | 42 | 42 | 41 |  9 |
+   | c | 42 | 10 | 10 |  9 |
+
+   *Weak robust (unable to create test case in C1)*
+   | a |  0 | 201 |  0 | 201 |
+   | b | 42 |  42 | 42 |  42 |
+   | c | 42 |  42 | 41 |  41 |
+
+   *Strong normal (since our classes are all mutual exclusive, it's impossible to
+   find any strong normal test case)*
+   | a | x |
+   | b | x |
+   | c | x |
+
+   *Strong robust*
+   | a |  0 | 0 | 201 | 201 |
+   | b |  0 | 0 | 201 | 201 |
+   | c | 42 | 0 |  42 | 201 |
+
+   That's it! Thanks to equivalence class, we can find out a set of test cases which
+   represent all the others shown in boundary value section. I'm not saying boundary
+   test is useless, but in triangle problem we don't have to use them *all*. Testing
+   edge case is still important.
 
 * NextDate problem
 * Commission problem
