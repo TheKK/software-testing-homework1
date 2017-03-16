@@ -189,5 +189,45 @@
    It's actually weird to find its *edge*. So I decide to skip edge testing analysis since
    it doen't look like an good method for triangle problem.
 
+** Decision table
+
+   Decision table is an great way to analysis triangle problem.
+
+   | a < b + c      | T | T | T | T | T | T | T | T | T | T | F |
+   | b < a + c      | T | T | T | T | T | T | T | T | T | F | - |
+   | c < a + b      | T | T | T | T | T | T | T | T | F | - | - |
+   |----------------+---+---+---+---+---+---+---+---+---+---+---|
+   | a == b         | T | T | F | F | F | T | T | F | - | - | - |
+   | b == c         | T | F | T | F | T | F | T | F | - | - | - |
+   | a == c         | T | F | F | T | T | T | F | F | - | - | - |
+   |----------------+---+---+---+---+---+---+---+---+---+---+---|
+   | Equivalence    | o |   |   |   |   |   |   |   |   |   |   |
+   | Isosceles      |   | o | o | o |   |   |   |   |   |   |   |
+   | Scalene        |   |   |   |   |   |   |   | o |   |   |   |
+   | Not a triangle |   |   |   |   |   |   |   |   | o | o | o |
+   | Impossible     |   |   |   |   | o | o | o |   |   |   |   |
+
+   With this table, we can easily create corresponding test cases:
+
+   *Equivalence triangle*
+   | a | 42 |
+   | b | 42 |
+   | c | 42 |
+
+   *Isosceles triangle*
+   | a | 42 | 42 |  3 |
+   | b | 42 |  3 | 42 |
+   | c |  3 | 42 | 42 |
+
+   *Scalene triangle*
+   | a | 3 |
+   | b | 4 |
+   | c | 5 |
+
+   *Not a triangle*
+   | a | 999 |   3 |   3 |
+   | b |   4 | 999 |   3 |
+   | c |   5 |   2 | 999 |
+
 * NextDate problem
 * Commission problem
