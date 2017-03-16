@@ -7,6 +7,7 @@
 #include <gtest/gtest.h>
 
 #include "triangleBoundaryTestcase.hpp"
+#include "triangleEquivalenceClassTestcass.hpp"
 #include "triangleTestValue.hpp"
 
 #include "triangleMachine.hpp"
@@ -15,11 +16,6 @@ using namespace testing;
 
 namespace {
 
-std::vector<TriangleTestValue> weakRobustTestValues{
-    {{0, 0, 0}, TriangleType::Equilateral},
-    {{100, -10, -10}, TriangleType::Equilateral},
-    {{100, -10, -10}, TriangleType::Equilateral},
-};
 std::vector<TriangleTestValue> strongNormalTestValues{
     {{0, 0, 0}, TriangleType::Equilateral},
     {{100, -10, -10}, TriangleType::Equilateral},
@@ -55,6 +51,6 @@ TEST_P(TriangleTests, ShouldGiveUsRightAnswer) {
 }
 
 INSTANTIATE_TEST_CASE_P(BoundaryValue, TriangleTests, ValuesIn(boundaryValueTestcase));
-INSTANTIATE_TEST_CASE_P(WeakRobustTriangleTests, TriangleTests, ValuesIn(weakRobustTestValues));
+INSTANTIATE_TEST_CASE_P(EquivalenceClass, TriangleTests, ValuesIn(equivalenceClassTestcase));
 INSTANTIATE_TEST_CASE_P(StrongNormalTriangleTests, TriangleTests, ValuesIn(strongNormalTestValues));
 INSTANTIATE_TEST_CASE_P(StrongRobustTriangleTests, TriangleTests, ValuesIn(strongRobustTestValues));
