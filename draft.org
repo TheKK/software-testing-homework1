@@ -170,5 +170,24 @@
    test is useless, but in triangle problem we don't have to use them *all*. Testing
    edge case is still important.
 
+** Edge testing
+
+   If we define our equivalence class as below:
+
+    - C1 = {a: 1 <= a <= 200}
+    - C2 = {b: 1 <= a <= 200}
+    - C3 = {c: 1 <= a <= 200}
+
+   then edge case would be the same as boundary value test and that's not what we expected.
+   But when we define our class as:
+
+    - C1 = {a, b, c, which form an equilateral triangle}
+    - C2 = {a, b, c, which form an isosceles triangle}
+    - C3 = {a, b, c, which form an scalene triangle}
+    - C4 = {a, b, c, which unable to form an triangle}
+
+   It's actually weird to find its *edge*. So I decide to skip edge testing analysis since
+   it doen't look like an good method for triangle problem.
+
 * NextDate problem
 * Commission problem
