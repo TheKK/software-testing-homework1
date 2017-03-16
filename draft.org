@@ -13,22 +13,21 @@
    This function has three inputs with range from 1 to 200, its normal boundary value
    test case should be:
 
-   *normal boundary*
+   *normal boundary (4 kinds x 3 variable = 12 test case)*
 
    | a |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |
    | b | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 |
    | c | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 |
 
-   and below are more test values to make it *robust boundary* by adding it into
+   and below are more test values to make it *robust boundary (12 + 2 * 3 variables)* by adding it into
    *normal boundary*
 
    | a |   0 | 201 | 100 | 100 | 100 | 100 |
    | b | 100 | 100 |   0 | 201 | 100 | 100 |
    | c | 100 | 100 | 100 | 100 |   0 | 201 |
 
-
    to reject the assumption that each variable are independent, let's convert our
-   test cases into *worst case boundary*, by adding more test case into *normal
+   test cases into *worst case boundary(6 * 6 + )*, by adding more test case into *normal
    boundary*
 
    | a |   1 |   1 |   1 |   1 |
@@ -47,31 +46,87 @@
    | b |   1 |   2 | 199 | 200 |
    | c | 100 | 100 | 100 | 100 |
 
-   | a | 1 | 1 |   1 |   1 |
-   | b | 1 | 2 | 199 | 200 |
+   | a | 1 | 2 | 199 | 200 |
+   | b | 1 | 1 |   1 |   1 |
    | c | 1 | 1 |   1 |   1 |
 
+   | a | 1 | 2 | 199 | 200 |
+   | b | 2 | 2 |   2 |   2 |
+   | c | 1 | 1 |   1 |   1 |
+
+   | a | 1 | 1 |   1 |   1 |
+   | b | 1 | 1 |   1 |   1 |
+   | c | 1 | 2 | 199 | 200 |
+
+   | a | 1 | 1 |   1 |   1 |
+   | b | 2 | 2 |   2 |   2 |
+   | c | 1 | 2 | 199 | 200 |
+
+   | a |   1 |   1 |   1 |   1 |
+   | b | 199 | 199 | 199 | 199 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a |   1 |   1 |   1 |   1 |
+   | b | 200 | 200 | 200 | 200 |
+   | c |   1 |   2 | 199 | 200 |
+
    | a | 2 | 2 |   2 |   2 |
-   | b | 1 | 2 | 199 | 200 |
-   | c | 2 | 2 |   2 |   2 |
+   | b | 1 | 1 |   1 |   1 |
+   | c | 1 | 2 | 199 | 200 |
+
+   | a | 2 | 2 |   2 |   2 |
+   | b | 2 | 2 |   2 |   2 |
+   | c | 1 | 2 | 199 | 200 |
+
+   | a |   2 |   2 |   2 |   2 |
+   | b | 199 | 199 | 199 | 199 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a |   2 |   2 |   2 |   2 |
+   | b | 200 | 200 | 200 | 200 |
+   | c |   1 |   2 | 199 | 200 |
 
    | a | 199 | 199 | 199 | 199 |
-   | b |   1 |   2 | 199 | 200 |
-   | c | 199 | 199 | 199 | 199 |
+   | b |   1 |   1 |   1 |   1 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a | 199 | 199 | 199 | 199 |
+   | b |   2 |   2 |   2 |   2 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a | 199 | 199 | 199 | 199 |
+   | b | 199 | 199 | 199 | 199 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a | 199 | 199 | 199 | 199 |
+   | b | 200 | 200 | 200 | 200 |
+   | c |   1 |   2 | 199 | 200 |
 
    | a | 200 | 200 | 200 | 200 |
-   | b |   1 |   2 | 199 | 200 |
-   | c | 200 | 200 | 200 | 200 |
+   | b |   1 |   1 |   1 |   1 |
+   | c |   1 |   2 | 199 | 200 |
 
-   Phew, there's already lot of them. I know it kind of lazy to skip rest of them but
+   | a | 200 | 200 | 200 | 200 |
+   | b |   2 |   2 |   2 |   2 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a | 200 | 200 | 200 | 200 |
+   | b | 199 | 199 | 199 | 199 |
+   | c |   1 |   2 | 199 | 200 |
+
+   | a | 200 | 200 | 200 | 200 |
+   | b | 200 | 200 | 200 | 200 |
+   | c |   1 |   2 | 199 | 200 |
+
+   Phew, there's already lot of them. I know it kind of lazy to skip some of them but
    hey, the rest of them are _redundant_, right? So let me just skip them.
 
    Finally, let add more test case into *worst case boundary* and make it become
    *robust worst case bondary*!
 
-   | a |   0 |   0 | 201 | 201 | 0 |   0 | 201 | 201 |   0 |   0 | 201 | 201 |
-   | b |   0 | 201 |   0 | 201 | 0 | 201 |   0 | 201 |   0 | 201 |   0 | 201 |
-   | c | 100 | 100 | 100 | 100 | 0 |   0 |   0 |   0 | 201 | 201 | 201 | 201 |
+   | a |   0 |   0 | 201 | 201 | 0 | 201 |   0 | 201 | 201 |
+   | b |   0 | 201 |   0 | 201 | 0 |   0 | 201 | 201 | 201 |
+   | c | 100 | 100 | 100 | 100 | 0 |   0 |   0 |   0 | 201 |
 
    Still, I skip most of them here since they're just in different order. That's all of
    them, folks!
