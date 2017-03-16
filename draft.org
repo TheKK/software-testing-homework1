@@ -225,9 +225,9 @@
    | c | 5 |
 
    *Not a triangle*
-   | a | 999 |   3 |   3 |
-   | b |   4 | 999 |   3 |
-   | c |   5 |   2 | 999 |
+   | a | 100 |   3 |   3 |
+   | b |   4 | 100 |   3 |
+   | c |   5 |   2 | 100 |
 
 * NextDate problem
 * Commission problem
