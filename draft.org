@@ -228,6 +228,27 @@
    | a | 100 |   3 |   3 |
    | b |   4 | 100 |   3 |
    | c |   5 |   2 | 100 |
+   
+** Conclusion
+   
+   So after all analysis, let recap some properties triangle problem has:
+
+     - parameter order doesn't matter, we only care able an *set* of value
+     - function result is decided by relation of each input
+     - invalid input exist
+    
+   Due to the properties shown and my experience going through all analysis process, it's
+   not hard to find out that:
+
+     - boundary test have **too** much redundant testcase
+     - it's not intuitive to find equivalence class
+     - edge test is hard be done as well
+     - decision table work quite well
+      
+   In my humble opinion, doing decision table was totally fine but not sufficient. We still
+   need some tests to valid how our function react to invalid input(s). My question here
+   would be that *could we assume that all three inputs are independent* and we don't have
+   go through every test shown in boundary value testing ?
 
 * NextDate problem
 * Commission problem
