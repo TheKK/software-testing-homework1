@@ -1,5 +1,80 @@
 * Triangle problem
-  
+
+  To make this assignment easier to impalement, let me assume that our function,
+  caculateTriangleType, has following signature:
+
+  TriangleType caculateTriangleType(int sideA, int sideB, int sideC)
+
+  So basically, this function accepts three integers range from 1 to 200, and return
+  an corresponding triangle type to the caller. Next, I'd like to write down some test
+  cases created from the methods which mentioned in the class.
+
+** Boundary values
+   This function has three inputs with range from 1 to 200, its normal boundary value
+   test case should be:
+
+   *normal boundary*
+
+   | a |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |
+   | b | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 |
+   | c | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 |
+
+   and below are more test values to make it *robust boundary* by adding it into
+   *normal boundary*
+
+   | a |   0 | 201 | 100 | 100 | 100 | 100 |
+   | b | 100 | 100 |   0 | 201 | 100 | 100 |
+   | c | 100 | 100 | 100 | 100 |   0 | 201 |
+
+
+   to reject the assumption that each variable are independent, let's convert our
+   test cases into *worst case boundary*, by adding more test case into *normal
+   boundary*
+
+   | a |   1 |   1 |   1 |   1 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 100 | 100 | 100 | 100 |
+
+   | a |   2 |   2 |   2 |   2 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 100 | 100 | 100 | 100 |
+
+   | a | 199 | 199 | 199 | 199 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 100 | 100 | 100 | 100 |
+
+   | a | 200 | 200 | 200 | 200 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 100 | 100 | 100 | 100 |
+
+   | a | 1 | 1 |   1 |   1 |
+   | b | 1 | 2 | 199 | 200 |
+   | c | 1 | 1 |   1 |   1 |
+
+   | a | 2 | 2 |   2 |   2 |
+   | b | 1 | 2 | 199 | 200 |
+   | c | 2 | 2 |   2 |   2 |
+
+   | a | 199 | 199 | 199 | 199 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 199 | 199 | 199 | 199 |
+
+   | a | 200 | 200 | 200 | 200 |
+   | b |   1 |   2 | 199 | 200 |
+   | c | 200 | 200 | 200 | 200 |
+
+   Phew, there's already lot of them. I know it kind of lazy to skip rest of them but
+   hey, the rest of them are _redundant_, right? So let me just skip them.
+
+   Finally, let add more test case into *worst case boundary* and make it become
+   *robust worst case bondary*!
+
+   | a |   0 |   0 | 201 | 201 | 0 |   0 | 201 | 201 |   0 |   0 | 201 | 201 |
+   | b |   0 | 201 |   0 | 201 | 0 | 201 |   0 | 201 |   0 | 201 |   0 | 201 |
+   | c | 100 | 100 | 100 | 100 | 0 |   0 |   0 |   0 | 201 | 201 | 201 | 201 |
+
+   Still, I skip most of them here since they're just in different order. That's all of
+   them, folks!
 
 * NextDate problem
 * Commission problem
