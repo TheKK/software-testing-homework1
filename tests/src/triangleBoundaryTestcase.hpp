@@ -15,7 +15,7 @@ std::vector<TriangleTestValue> boundaryValueTestcase{
     {{1, 100, 100}, TriangleType::Isosceles},
     {{2, 100, 100}, TriangleType::Isosceles},
     {{199, 100, 100}, TriangleType::Isosceles},
-    {{200, 100, 100}, TriangleType::Isosceles},
+    {{200, 100, 100}, TriangleType::NotATriangle},
     // Skip the rest...
 
     // Robust normal boundary
