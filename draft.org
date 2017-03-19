@@ -228,15 +228,15 @@
    | a | 100 |   3 |   3 |
    | b |   4 | 100 |   3 |
    | c |   5 |   2 | 100 |
-   
+
 ** Conclusion
-   
+
    So after all analysis, let recap some properties triangle problem has:
 
      - parameter order doesn't matter, we only care able an *set* of value
      - function result is decided by relation of each input
      - invalid input exist
-    
+
    Due to the properties shown and my experience going through all analysis process, it's
    not hard to find out that:
 
@@ -244,11 +244,84 @@
      - it's not intuitive to find equivalence class
      - edge test is hard be done as well
      - decision table work quite well
-      
+
    In my humble opinion, doing decision table was totally fine but not sufficient. We still
    need some tests to valid how our function react to invalid input(s). My question here
    would be that *could we assume that all three inputs are independent* and we don't have
    go through every test shown in boundary value testing ?
 
+
 * NextDate problem
+** Boundary values
+
+   Next date function is simple, give a certain date and it give you the next date:
+
+   struct Date {
+      int year, month, day;
+   }
+
+   Date nextDate(const Date& today);
+
+   After knowing how this function works, let's defind what's valid/invalid values.
+
+   year = {1..3000}
+   month = {1..12}
+   day = {1..31}
+
+   I know the definition of *valid day* is weird but let it be for now. Using this input
+   range, we can easily construct our boundary value test cases.
+
+   *normal boundary*
+   | year  | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 |
+   | month |    7 |   10 |   10 |   10 |   10 |    1 |    2 |   11 |   12 |
+   | day   |    7 |    1 |    2 |   30 |   31 |   10 |   10 |   10 |   10 |
+
+   | year  |  1  |  2 | 2999 | 3000 |
+   | month | 10  | 10 |   10 |   10 |
+   | day   | 10  | 10 |   10 |   10 |
+
+   *robust bondary*
+   | year  |  0 | 3001 | 2012 | 2012 | 2012 | 2012 |
+   | month | 10 |   10 |    0 |   13 |   10 |   10 |
+   | day   | 10 |   10 |   10 |   10 |    0 |   32 |
+
+   *worst case boundary*
+   *(year + month)*
+   | year  |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 2999 | 2999 | 2999 | 2999 |
+   | month |  1 |  2 | 11 | 12 |  1 |  2 | 11 | 12 |    1 |    2 |   11 |   12 |
+   | day   | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |   10 |   10 |   10 |   10 |
+
+   | year  | 3000 | 3000 | 3000 | 3000 |
+   | month |    1 |    2 |   11 |   12 |
+   | day   |   10 |   10 |   10 |   10 |
+
+   *(year + day)*
+   | year  |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 2999 | 2999 | 2999 | 2999 |
+   | month | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |   10 |   10 |   10 |   10 |
+   | day   |  1 |  2 | 30 | 31 |  1 |  2 | 30 | 31 |    1 |    2 |   30 |   31 |
+
+   | year  | 3000 | 3000 | 3000 | 3000 |
+   | month |   10 |   10 |   10 |   10 |
+   | day   |    1 |    2 |   30 |   31 |
+
+   *(month + day)*
+   | year  | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 | 2012 |
+   | month |    1 |    1 |    1 |    1 |    2 |    2 |    2 |    2 |   11 |   11 |   11 |   11 |
+   | day   |    1 |    2 |   30 |   31 |    1 |    2 |   30 |   31 |    1 |    2 |   30 |   31 |
+
+   | year  | 2012 | 2012 | 2012 | 2012 |
+   | month |   12 |   12 |   12 |   12 |
+   | day   |    1 |    2 |   30 |   31 |
+
+   *(year + month + day)*
+   To be honest I don't want to do this... It doen't make sense to both you and me so let me
+   skip this one.
+
+   You can find that boundary value testing is not enough for next date problem and we need
+   other kinds of testing to make our code more valuable.
+
+** Equivalence class
+** Edge testing
+** Decision table
+
 * Commission problem
