@@ -321,6 +321,67 @@
    other kinds of testing to make our code more valuable.
 
 ** Equivalence class
+   
+   Let's classify our inputs shown below:
+
+   m1 = { month has 30 days }
+   m2 = { month has 31 days }
+   m3 = { February }
+   mx+ = { + invalid month }
+   mx- = { - invalid month }
+   
+   d1 = { 1 <= day <= 28 }
+   d2 = { day == 29 }
+   d3 = { day == 30 }
+   d4 = { day == 31 }
+   md+ = { + invalid day }
+   md- = { - invalid day }
+   
+   y1 = { leap year }
+   y2 = { common year }
+   yx+ = { + invalid year }
+   yx- = { -invalid year }
+   
+   *weak normal*
+   | year  | y1 | y1 | y1 | y2 |
+   | month | m1 | m2 | m3 | m3 |
+   | day   | d1 | d2 | d3 | d4 |
+
+   *strong normal*
+   | year  | y1 | y1 | y1 | y1 | y1 | y1 | y1 | y1 | y1 | y1 | y1 | y1 |
+   | month | m1 | m1 | m1 | m1 | m2 | m2 | m2 | m2 | m3 | m3 | m3 | m3 |
+   | day   | d1 | d2 | d3 | d4 | d1 | d2 | d3 | d4 | d1 | d2 | d3 | d4 |
+
+   *weak robust*
+   | year  | y1  | y2  | yx- | yx+ | yx+ | yx- | yx- | yx- | yx- |
+   | month | mx+ | mx- | m1  | m2  | m3  | mx- | mx- | mx- | mx- |
+   | day   | dx+ | dx- | dx- | dx+ | dx- | d1  | d2  | d3  | d4  |
+
+   | year  | yx+ | yx+ | yx- |
+   | month | mx+ | mx- | mx- |
+   | day   | dx+ | dx- | dx- |
+   
+   *strong robust(I only write part of them...)*
+   | year  | y- | y- | y- | y- | y- | y- |
+   | month | m- | m- | m- | m- | m- | m- |
+   | day   | d- | d1 | d2 | d3 | d4 | d+ |
+
+   | year  | y- | y- | y- | y- | y- | y- |
+   | month | m1 | m1 | m1 | m1 | m1 | m1 |
+   | day   | d- | d1 | d2 | d3 | d4 | d+ |
+
+   | year  | y- | y- | y- | y- | y- | y- |
+   | month | m2 | m2 | m2 | m2 | m2 | m2 |
+   | day   | d- | d1 | d2 | d3 | d4 | d+ |
+
+   | year  | y- | y- | y- | y- | y- | y- |
+   | month | m3 | m3 | m3 | m3 | m3 | m3 |
+   | day   | d- | d1 | d2 | d3 | d4 | d+ |
+
+   | year  | y- | y- | y- | y- | y- | y- |
+   | month | m+ | m+ | m+ | m+ | m+ | m+ |
+   | day   | d- | d1 | d2 | d3 | d4 | d+ |
+
 ** Edge testing
 ** Decision table
 
