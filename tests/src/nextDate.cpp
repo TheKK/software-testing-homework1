@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "nextDateBoundaryTestcase.hpp"
+#include "nextDateEquvalenceClssTestcase.hpp"
 #include "nextDateMachine.hpp"
 #include "nextDateTestValue.hpp"
 
@@ -20,3 +21,4 @@ TEST_P(NextDateTest, ShouldGiveUsRightAnswer) {
 }
 
 INSTANTIATE_TEST_CASE_P(BoundaryValue, NextDateTest, ValuesIn(boundaryValueTestcase));
+INSTANTIATE_TEST_CASE_P(EquivalenceClass, NextDateTest, ValuesIn(equivalenceClassTestcase));
