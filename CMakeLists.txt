@@ -9,6 +9,10 @@ set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
+find_package(Boost 1.55.0 REQUIRED)
+include_directories(SYSTEM ${Boost_INCLUDE_DIRS})
+link_libraries(${Boost_LIBRARIES})
+
 add_subdirectory("${CMAKE_SOURCE_DIR}/third_party/googletest" EXCLUDE_FROM_ALL)
 include_directories(SYSTEM "${CMAKE_SOURCE_DIR}/third_party/googletest/googletest/include")
 link_libraries(gtest)
