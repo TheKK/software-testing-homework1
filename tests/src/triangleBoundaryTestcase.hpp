@@ -10,9 +10,7 @@
 // Boundary value = {1, 2, 199, 200}
 // Robust value = {0, 201}
 //
-std::vector<TriangleTestValue> boundaryValueTestcase{
-    // Normal boundary
-    {{1, 100, 100}, TriangleType::Isosceles},
+std::vector<TriangleTestValue> boundaryValueTestcase{{{1, 100, 100}, TriangleType::Isosceles},
     {{2, 100, 100}, TriangleType::Isosceles},
     {{199, 100, 100}, TriangleType::Isosceles},
     {{200, 100, 100}, TriangleType::NotATriangle},
