@@ -15,7 +15,6 @@
    test case should be:
 
    *normal boundary (4 kinds x 3 variable = 12 test case)*
-
    | a |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |
    | b | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 | 100 | 100 | 100 | 100 |
    | c | 100 | 100 | 100 | 100 | 100 | 100 | 100 | 100 |   1 |   2 | 199 | 200 |
@@ -256,17 +255,19 @@
 
    Next date function is simple, give a certain date and it give you the next date:
 
+#+begin_example
    struct Date {
       int year, month, day;
    }
 
    Date nextDate(const Date& today);
+#+end_example
 
    After knowing how this function works, let's defind what's valid/invalid values.
 
-   year = {1..3000}
-   month = {1..12}
-   day = {1..31}
+     - year = {1..3000}
+     - month = {1..12}
+     - day = {1..31}
 
    I know the definition of *valid day* is weird but let it be for now. Using this input
    range, we can easily construct our boundary value test cases.
@@ -324,23 +325,23 @@
 
    Let's classify our inputs shown below:
 
-   m1 = { month has 30 days }
-   m2 = { month has 31 days }
-   m3 = { February }
-   mx+ = { + invalid month }
-   mx- = { - invalid month }
+     - m1 = { month has 30 days }
+     - m2 = { month has 31 days }
+     - m3 = { February }
+     - mx+ = { + invalid month }
+     - mx- = { - invalid month }
 
-   d1 = { 1 <= day <= 28 }
-   d2 = { day == 29 }
-   d3 = { day == 30 }
-   d4 = { day == 31 }
-   md+ = { + invalid day }
-   md- = { - invalid day }
+     - d1 = { 1 <= day <= 28 }
+     - d2 = { day == 29 }
+     - d3 = { day == 30 }
+     - d4 = { day == 31 }
+     - md+ = { + invalid day }
+     - md- = { - invalid day }
 
-   y1 = { leap year }
-   y2 = { common year }
-   yx+ = { + invalid year }
-   yx- = { -invalid year }
+     - y1 = { leap year }
+     - y2 = { common year }
+     - yx+ = { + invalid year }
+     - yx- = { -invalid year }
 
    *weak normal*
    | year  | y1 | y1 | y1 | y2 |
@@ -388,14 +389,14 @@
    testing. here's it:
 
    *valid inputs*
-   vm = { 1, 2, 3, 11, 12 }
-   vd = { 1, 2, 27, 28, 29, 30, 31 }
-   vy = { 1, 2, 2011, 2012, 2013, 2999, 3000 }
+     - vm = { 1, 2, 3, 11, 12 }
+     - vd = { 1, 2, 27, 28, 29, 30, 31 }
+     - vy = { 1, 2, 2011, 2012, 2013, 2999, 3000 }
 
    *invalid inputs*
-   im = { 0, 13 }
-   id = { 0, 31 }
-   iy = { 0, 3001 }
+     - im = { 0, 13 }
+     - id = { 0, 31 }
+     - iy = { 0, 3001 }
 
    Now we know that all the test cases are just their permutations, that's a good new to
    hear
@@ -409,20 +410,19 @@
 
    Let's define *classifications* first:
 
-   m2 = { February }
-   m11 = { December }
-   m30 = { month has 30 days }
-   m31 = { month has 31 days except December }
+     - m2 = { February }
+     - m11 = { December }
+     - m30 = { month has 30 days }
+     - m31 = { month has 31 days except December }
 
-   d = { 1 <= day <= 27 }
-   d28 = { day == 28 }
-   d29 = { day == 29 }
-   d30 = { day == 30 }
-   d31 = { day == 31 }
+     - d = { 1 <= day <= 27 }
+     - d28 = { day == 28 }
+     - d29 = { day == 29 }
+     - d30 = { day == 30 }
+     - d31 = { day == 31 }
 
-   yl = { leap year }
-   yn = { common year }
-
+     - yl = { leap year }
+     - yn = { common year }
    And here's our decision table:
    *February is the trickiest one, its day in month would be affected by year*
    | Year in ?        | -  | yn  | yl  | yn  | yl  | -   | -   |
@@ -585,19 +585,19 @@
    classification might looks like this:
 
    *valid input*
-   lock1 = {1 <= locks <= 70}
-   stock1 = {1 <= stocks <= 80}
-   barrel1 = {1 <= barrels <= 90}
+     - lock1 = {1 <= locks <= 70}
+     - stock1 = {1 <= stocks <= 80}
+     - barrel1 = {1 <= barrels <= 90}
 
    *invalid input*
-   lock- = { 0 }
-   lock+ = { 71 }
+     - lock- = { 0 }
+     - lock+ = { 71 }
 
-   stock- = { 0 }
-   stock+ = { 81 }
+     - stock- = { 0 }
+     - stock+ = { 81 }
 
-   barrel- = { 0 }
-   barrel+ = { 91 }
+     - barrel- = { 0 }
+     - barrel+ = { 91 }
 
    And you'll find that it would build the same test case as boundary value due to the
    fact that all three inputs are independent.
