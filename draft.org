@@ -614,4 +614,17 @@
    since it produce the same test case as boundary value analysis.
 
 ** Decision table
+
+   Here's our decision table...
+
+  | one of input ins valid | o |   |   |   |
+  | profit >= 1800         |   | o |   |   |
+  | 1800 > profit >= 1000  |   |   | o |   |
+  | profit < 1000          |   |   |   | o |
+  |------------------------+---+---+---+---|
+  | invalid output         | o |   |   |   |
+  | correct commission     |   | o | o | o |
+
+  The only few rule is that "all inputs should be valid" so that's it!
+
 ** Conclusion
