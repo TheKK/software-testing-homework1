@@ -477,8 +477,108 @@
    Basically, the critical decision table we make almost fit how we implement our program
    and that's quite nice to see. It's clear that decision table fits well if our problem
    inputs are dependent and follow some rules, like next date problem.
-   
+
    With the decision table to make keep on eye on our correctness, it's more robust if we
    combine it we edge test to find out if we handle *invalid* input properly.
 
+
 * Commission problem
+** Boundary values
+
+   Let me define our commission function first. Our function accept three inputs, number of
+   locks, number of stocks and number barrel, in range and price shown below:
+
+   | parts name | range   | price |
+   |------------+---------+-------|
+   | locks      | 1 .. 70 | $45   |
+   | stocks     | 1 .. 80 | $30   |
+   | barrels    | 1 .. 90 | $25   |
+
+   And here's how we calculate the final commission:
+
+   | profit           | commission |
+   |------------------+------------|
+   | p <= $1000       |        10% |
+   | 1000 < p =< 1800 |        15% |
+   | 1800 < p         |        20% |
+
+   So, it's time to find out our boundary and build boundary test case!
+
+   | parts name | normal inputs | boundary inputs | robust inputs |
+   |------------+---------------+-----------------+---------------|
+   | locks      |            10 | 1, 2, 69, 70    | 0, 71         |
+   | stocks     |            10 | 1, 2, 79, 80    | 0, 81         |
+   | barrels    |            10 | 1, 2, 89, 90    | 0, 91         |
+
+   *normal boundary*
+   | locks   |  1 |  2 | 10 | 69 | 70 |
+   | stocks  | 10 | 10 | 10 | 10 | 10 |
+   | barrels | 10 | 10 | 10 | 10 | 10 |
+
+   | locks   | 10 | 10 | 10 | 10 |
+   | stocks  |  1 |  2 | 79 | 80 |
+   | barrels | 10 | 10 | 10 | 10 |
+
+   | locks   | 10 | 10 | 10 | 10 |
+   | stocks  | 10 | 10 | 10 | 10 |
+   | barrels |  1 |  2 | 89 | 90 |
+
+   *robust boundary*
+   | locks   |  0 | 71 | 10 | 10 | 10 | 10 |
+   | stocks  | 10 | 10 |  0 | 81 | 10 | 10 |
+   | barrels | 10 | 10 | 10 | 10 |  0 | 91 |
+
+   *worst case test case*
+   *(lock & stock)*
+   | locks   |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 69 | 69 | 69 | 69 | 70 | 70 | 70 | 70 |
+   | stocks  |  1 |  2 | 79 | 80 |  1 |  2 | 79 | 80 |  1 |  2 | 79 | 80 |  1 |  2 | 79 | 80 |
+   | barrels | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |
+
+   *(lock & barrel)*
+   | locks   |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 69 | 69 | 69 | 69 | 70 | 70 | 70 | 70 |
+   | stocks  | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |
+   | barrels |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   *(stock & barrel)*
+   | locks   | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 | 10 |
+   | stocks  |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 79 | 79 | 79 | 79 | 80 | 80 | 80 | 80 |
+   | barrels |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   *(lock & stock & barrel)*
+   | locks   | 1 | 1 |  1 |  1 | 1 | 1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |  1 |
+   | stocks  | 1 | 1 |  1 |  1 | 2 | 2 |  2 |  2 | 79 | 79 | 79 | 79 | 80 | 80 | 80 | 80 |
+   | barrels | 1 | 2 | 89 | 90 | 1 | 2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   | locks   | 2 | 2 |  2 |  2 | 2 | 2 |  2 |  2 |  2 |  2 |  2 |  2 |  2 |  2 |  2 |  2 |
+   | stocks  | 1 | 1 |  1 |  1 | 2 | 2 |  2 |  2 | 79 | 79 | 79 | 79 | 80 | 80 | 80 | 80 |
+   | barrels | 1 | 2 | 89 | 90 | 1 | 2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   | locks   | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 | 69 |
+   | stocks  |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 79 | 79 | 79 | 79 | 80 | 80 | 80 | 80 |
+   | barrels |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   | locks   | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 | 70 |
+   | stocks  |  1 |  1 |  1 |  1 |  2 |  2 |  2 |  2 | 79 | 79 | 79 | 79 | 80 | 80 | 80 | 80 |
+   | barrels |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |  1 |  2 | 89 | 90 |
+
+   *robust worst case*
+   | locks   |  0 |  0 | 71 | 71 |
+   | stocks  |  0 | 81 |  0 | 81 |
+   | barrels | 10 | 10 | 10 | 10 |
+
+   | locks   | 10 | 10 | 10 | 10 |
+   | stocks  |  0 | 81 |  0 | 81 |
+   | barrels |  0 | 91 |  0 | 91 |
+
+   | locks   |  0 |  0 | 71 | 71 |
+   | barrels | 10 | 10 | 10 | 10 |
+   | barrels |  0 | 91 |  0 | 91 |
+
+   | locks   | 0 |  0 | 71 | 71 |  0 |  0 | 71 | 71 |
+   | stocks  | 0 | 81 |  0 | 81 |  0 | 81 |  0 | 81 |
+   | barrels | 0 |  0 |  0 |  0 | 91 | 91 | 91 | 91 |
+
+** Equivalence class
+** Edge testing
+** Decision table
+** Conclusion
