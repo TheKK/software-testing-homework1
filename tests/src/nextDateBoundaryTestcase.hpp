@@ -17,12 +17,12 @@ const std::vector<NextDateTestValue> boundaryValueTestcase{
     {{2012, 12, 10}, Date{2012, 12, 11}},
 
     // Robust boundary
-    {{0, 10, 10}, Date{0, 10, 10}},
-    {{3001, 10, 10}, Date{3001, 10, 10}},
-    {{2012, 0, 10}, Date{2012, 0, 10}},
-    {{2012, 13, 10}, Date{2012, 13, 10}},
-    {{2012, 0, 0}, Date{2012, 0, 0}},
-    {{2012, 10, 32}, Date{2012, 10, 32}},
+    {{0, 10, 10}, boost::none},
+    {{3001, 10, 10}, boost::none},
+    {{2012, 0, 10}, boost::none},
+    {{2012, 13, 10}, boost::none},
+    {{2012, 0, 0}, boost::none},
+    {{2012, 10, 32}, boost::none},
 
     // Worst case boundary*
     // year + month
@@ -72,8 +72,8 @@ const std::vector<NextDateTestValue> boundaryValueTestcase{
     {{2012, 2, 31}, boost::none},
     {{2012, 11, 1}, Date{2012, 11, 2}},
     {{2012, 11, 2}, Date{2012, 11, 3}},
-    {{2012, 11, 30}, Date{2012, 11, 31}},
-    {{2012, 11, 31}, Date{2012, 12, 1}},
+    {{2012, 11, 30}, Date{2012, 12, 1}},
+    {{2012, 11, 31}, boost::none},
     {{2012, 12, 2}, Date{2012, 12, 3}},
     {{2012, 12, 30}, Date{2012, 12, 31}},
     {{2012, 12, 31}, Date{2013, 1, 1}},

@@ -14,14 +14,14 @@ dateIsValid(const Date& today) {
         const auto isLeapYear = (today.year % 4 == 0);
 
         dayIsValid =
-            isLeapYear ? (today.day >= 0 && today.day <= 29) : (today.day >= 0 && today.day <= 28);
+            isLeapYear ? (today.day >= 1 && today.day <= 29) : (today.day >= 1 && today.day <= 28);
     } break;
     // month with 30 days
     case 4:
     case 6:
     case 9:
     case 11:
-        dayIsValid = (today.day >= 0 && today.day <= 30);
+        dayIsValid = (today.day >= 1 && today.day <= 30);
         break;
     // month with 31 days
     case 1:
@@ -31,7 +31,7 @@ dateIsValid(const Date& today) {
     case 8:
     case 10:
     case 12:
-        dayIsValid = (today.day >= 0 && today.day <= 31);
+        dayIsValid = (today.day >= 1 && today.day <= 31);
         break;
     }
 
@@ -62,7 +62,7 @@ nextDate(const Date& today) noexcept {
 
     // December
     case 12:
-        if (today.day + 1 > 31) {
+        if (today.day == 31) {
             const auto nextDate = Date{today.year + 1, 1, 1};
 
             if (dateIsValid(nextDate)) {
@@ -71,6 +71,9 @@ nextDate(const Date& today) noexcept {
             } else {
                 return boost::none;
             }
+
+        } else {
+            return Date{today.year, today.month, today.day + 1};
         }
         break;
 
@@ -79,7 +82,7 @@ nextDate(const Date& today) noexcept {
     case 6:
     case 9:
     case 11:
-        if (today.day + 1 > 30) {
+        if (today.day == 30) {
             return Date{today.year, today.month + 1, 1};
 
         } else {
@@ -94,7 +97,7 @@ nextDate(const Date& today) noexcept {
     case 7:
     case 8:
     case 10:
-        if (today.day + 1 > 31) {
+        if (today.day == 31) {
             return Date{today.year, today.month + 1, 1};
 
         } else {
