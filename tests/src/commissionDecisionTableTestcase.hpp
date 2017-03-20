@@ -4,7 +4,7 @@
 
 #include "commissionTestValue.hpp"
 
-std::vector<CommissionTestValue> decisionTableValueTestcase{
+const std::vector<CommissionTestValue> decisionTableValueTestcase{
     {{0, 10, 10}, boost::none},
 
     // profit >= 1800

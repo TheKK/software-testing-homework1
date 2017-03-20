@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "commissionBoundaryTestcase.hpp"
+#include "commissionDecisionTableTestcase.hpp"
 #include "commissionMachine.hpp"
 #include "commissionTestValue.hpp"
 
@@ -25,3 +26,4 @@ TEST_P(CommissionTest, ShouldGiveUsRightAnswer) {
 }
 
 INSTANTIATE_TEST_CASE_P(BoundaryValue, CommissionTest, ValuesIn(boundaryValueTestcase));
+INSTANTIATE_TEST_CASE_P(DecisionTable, CommissionTest, ValuesIn(decisionTableValueTestcase));

@@ -628,3 +628,10 @@
   The only few rule is that "all inputs should be valid" so that's it!
 
 ** Conclusion
+  
+   Commission problem is one kind of simple problem that inputs rarely affect the other.
+   Such problem is perfect target for boundary value analysis but not decision table, since
+   not much rule apply to input values.
+
+   It also looks fair that commission problem is the simplest problem here and less test case
+   to cover most situation.
