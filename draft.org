@@ -321,7 +321,7 @@
    other kinds of testing to make our code more valuable.
 
 ** Equivalence class
-   
+
    Let's classify our inputs shown below:
 
    m1 = { month has 30 days }
@@ -329,19 +329,19 @@
    m3 = { February }
    mx+ = { + invalid month }
    mx- = { - invalid month }
-   
+
    d1 = { 1 <= day <= 28 }
    d2 = { day == 29 }
    d3 = { day == 30 }
    d4 = { day == 31 }
    md+ = { + invalid day }
    md- = { - invalid day }
-   
+
    y1 = { leap year }
    y2 = { common year }
    yx+ = { + invalid year }
    yx- = { -invalid year }
-   
+
    *weak normal*
    | year  | y1 | y1 | y1 | y2 |
    | month | m1 | m2 | m3 | m3 |
@@ -360,7 +360,7 @@
    | year  | yx+ | yx+ | yx- |
    | month | mx+ | mx- | mx- |
    | day   | dx+ | dx- | dx- |
-   
+
    *strong robust(I only write part of them...)*
    | year  | y- | y- | y- | y- | y- | y- |
    | month | m- | m- | m- | m- | m- | m- |
@@ -383,6 +383,99 @@
    | day   | d- | d1 | d2 | d3 | d4 | d+ |
 
 ** Edge testing
+
+   I'll use the same class from equivalence class testing and modify it for our edge
+   testing. here's it:
+
+   *valid inputs*
+   vm = { 1, 2, 3, 11, 12 }
+   vd = { 1, 2, 27, 28, 29, 30, 31 }
+   vy = { 1, 2, 2011, 2012, 2013, 2999, 3000 }
+
+   *invalid inputs*
+   im = { 0, 13 }
+   id = { 0, 31 }
+   iy = { 0, 3001 }
+
+   Now we know that all the test cases are just their permutations, that's a good new to
+   hear
+
+   *weak normal*
+   | year  | y1 | y1 | y1 | y2 |
+   | month | m1 | m2 | m3 | m3 |
+   | day   | d1 | d2 | d3 | d4 |
+
 ** Decision table
+
+   Let's define *classifications* first:
+
+   m2 = { February }
+   m11 = { December }
+   m30 = { month has 30 days }
+   m31 = { month has 31 days except December }
+
+   d = { 1 <= day <= 27 }
+   d28 = { day == 28 }
+   d29 = { day == 29 }
+   d30 = { day == 30 }
+   d31 = { day == 31 }
+
+   yl = { leap year }
+   yn = { common year }
+
+   And here's our decision table:
+   *February is the trickiest one, its day in month would be affected by year*
+   | Year in ?        | -  | yn  | yl  | yn  | yl  | -   | -   |
+   | Month in ?       | m2 | m2  | m2  | m2  | m2  | m2  | m2  |
+   | Day in ?         | d  | d28 | d28 | d29 | d29 | d30 | d31 |
+   |------------------+----+-----+-----+-----+-----+-----+-----|
+   | Increment Year   |    |     |     |     |     |     |     |
+   | Increment Month  |    | o   |     |     | o   |     |     |
+   | Increment day    | o  |     | o   |     |     |     |     |
+   | Reset to day one |    | o   |     |     | o   |     |     |
+   | Reset to January |    |     |     |     |     |     |     |
+   | Impossible       |    |     |     | o   |     | o   | o   |
+
+   *Every month with 30 days*
+   | Year in ?        | -   | -   | -   | -   | -   |
+   | Month in ?       | m30 | m30 | m30 | m30 | m30 |
+   | Day in ?         | d   | d28 | d29 | d30 | d31 |
+   |------------------+-----+-----+-----+-----+-----|
+   | Increment Year   |     |     |     |     |     |
+   | Increment Month  |     |     |     |  o  |     |
+   | Increment day    |  o  |  o  |   o |     |     |
+   | Reset to day one |     |     |     |  o  |     |
+   | Reset to January |     |     |     |     |     |
+   | Impossible       |     |     |     |     |  o  |
+
+   *Every month with 31 days except December*
+   | Year in ?        | -   | -   | -   | -   | -   |
+   | Month in ?       | m31 | m31 | m31 | m31 | m31 |
+   | Day in ?         | d   | d28 | d29 | d30 | d31 |
+   |------------------+-----+-----+-----+-----+-----|
+   | Increment Year   |     |     |     |     |     |
+   | Increment Month  |     |     |     |     | o   |
+   | Increment day    | o   | o   | o   | o   |     |
+   | Reset to day one |     |     |     |     | o   |
+   | Reset to January |     |     |     |     |     |
+   | Impossible       |     |     |     |     |     |
+
+   *December*
+   | Year in ?        | -   | -   | -   | -   | -   |
+   | Month in ?       | m12 | m12 | m12 | m12 | m12 |
+   | Day in ?         | d   | d28 | d29 | d30 | d31 |
+   |------------------+-----+-----+-----+-----+-----|
+   | Increment Year   |     |     |     |     | o   |
+   | Increment Month  |     |     |     |     |     |
+   | Increment day    | o   | o   | o   | o   |     |
+   | Reset to day one |     |     |     |     | o   |
+   | Reset to January |     |     |     |     | o   |
+   | Impossible       |     |     |     |     |     |
+
+** Conclusion
+
+   Basically, the critical decision table we make almost fit how we implement our program
+   and that's quite nice to see. It's clear that decision table fits well if our problem
+   inputs are dependent and follow some rules, like next date problem.
 
 * Commission problem
