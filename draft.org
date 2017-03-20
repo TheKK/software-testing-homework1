@@ -579,6 +579,29 @@
    | barrels | 0 |  0 |  0 |  0 | 91 | 91 | 91 | 91 |
 
 ** Equivalence class
+   
+   I don't think it's proper to use equivalence class analysis on commission problem sine
+   our input is not discrete and are all valid in a certain range. One possible
+   classification might looks like this:
+
+   *valid input*
+   lock1 = {1 <= locks <= 70}
+   stock1 = {1 <= stocks <= 80}
+   barrel1 = {1 <= barrels <= 90}
+   
+   *invalid input*
+   lock- = { 0 }
+   lock+ = { 71 }
+
+   stock- = { 0 }
+   stock+ = { 81 }
+
+   barrel- = { 0 }
+   barrel+ = { 91 }
+   
+   And you'll find that it would build the same test case as boundary value due to the
+   fact that all three inputs are independent.
+
 ** Edge testing
 ** Decision table
 ** Conclusion
