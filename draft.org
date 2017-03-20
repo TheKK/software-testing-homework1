@@ -477,5 +477,8 @@
    Basically, the critical decision table we make almost fit how we implement our program
    and that's quite nice to see. It's clear that decision table fits well if our problem
    inputs are dependent and follow some rules, like next date problem.
+   
+   With the decision table to make keep on eye on our correctness, it's more robust if we
+   combine it we edge test to find out if we handle *invalid* input properly.
 
 * Commission problem
