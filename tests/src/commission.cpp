@@ -16,7 +16,12 @@ TEST_P(CommissionTest, ShouldGiveUsRightAnswer) {
     const auto actual = caculateCommision(input);
     const auto& expected = testValue.expetation;
 
-    EXPECT_EQ(expected, actual);
+    // All be valid result or invalid result
+    ASSERT_EQ(!actual, !expected);
+
+    if (actual && expected) {
+        EXPECT_FLOAT_EQ(*expected, *actual);
+    }
 }
 
 INSTANTIATE_TEST_CASE_P(BoundaryValue, CommissionTest, ValuesIn(boundaryValueTestcase));
