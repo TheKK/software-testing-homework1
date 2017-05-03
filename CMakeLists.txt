@@ -5,7 +5,7 @@ project("software_testing_homework")
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED on)
 
-set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra")
+set(CMAKE_CXX_FLAGS "-std=c++11 -Wall -Wextra -ftest-coverage -fprofile-arcs -lgcov")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3")
 
@@ -21,9 +21,16 @@ include_directories("${CMAKE_SOURCE_DIR}/src")
 
 file(GLOB_RECURSE LIB_SOURCES "${CMAKE_SOURCE_DIR}/src/*.cpp")
 file(GLOB_RECURSE TEST_SOURCES "${CMAKE_SOURCE_DIR}/tests/src/*.cpp")
+file(GLOB_RECURSE PATH_TEST_SOURCES "${CMAKE_SOURCE_DIR}/tests/pathTesting/*.cpp")
 
 add_executable(unit_test_runner WIN32
   "${CMAKE_SOURCE_DIR}/tests/main.cpp"
   ${LIB_SOURCES}
   ${TEST_SOURCES}
+  )
+
+add_executable(path_unit_test_runner WIN32
+  "${CMAKE_SOURCE_DIR}/tests/main.cpp"
+  ${LIB_SOURCES}
+  ${PATH_TEST_SOURCES}
   )
