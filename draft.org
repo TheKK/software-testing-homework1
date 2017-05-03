@@ -1,3 +1,9 @@
+* Software testing homework 1
+  
+  - GitHub repository: [[https://github.com/TheKK/software-testing-homework1][here]] 
+  - Travis CI (testing progress): [[https://travis-ci.org/TheKK/software-testing-homework1][here]] 
+  - Document draft: [[https://github.com/TheKK/software-testing-homework1/blob/master/draft.org][here]]
+
 * Triangle problem
 
   To make this assignment easier to impalement, let me assume that our function,
